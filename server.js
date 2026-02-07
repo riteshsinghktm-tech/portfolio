@@ -1,62 +1,11 @@
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const app = express();
+const express = require('express'); const fs = require('fs'); const path = require('path'); const app = express();
 
-app.use(express.json());
-app.use(express.static('public'));
+const PORT = process.env.PORT || 3000;
 
-// CHANGE: Pointing specifically to database.json
-const DATA_FILE = path.join(__dirname, 'database.json');
+app.use(express.json()); app.use(express.static(path.join(__dirname, 'public')));
 
-// 1. SAVE DATA TO database.json
-app.post('/save', (req, res) => {
-    const newMessage = {
-        name: req.body.name,
-        message: req.body.message,
-        time: new Date().toLocaleString()
-    };
+app.get('/api/data', (req, res) => { fs.readFile('data.json', 'utf8', (err, data) => { if (err) return res.status(500).json({ error: 'Read Error' }); res.json(JSON.parse(data || '[]')); }); });
 
-    fs.readFile(DATA_FILE, 'utf8', (err, data) => {
-        let json = [];
-        
-        // If file exists and isn't empty, parse it
-        if (!err && data) {
-            try {
-                json = JSON.parse(data);
-            } catch (parseErr) {
-                json = []; 
-            }
-        }
+app.post('/api/data', (req, res) => { const newData = req.body; fs.readFile('data.json', 'utf8', (err, data) => { let json = []; if (!err && data) json = JSON.parse(data); json.push(newData); fs.writeFile('data.json', JSON.stringify(json, null, 2), (err) => { if (err) return res.status(500).json({ error: 'Save Error' }); res.status(200).json({ message: 'Success' }); }); }); });
 
-        json.push(newMessage);
-
-        // Save back to database.json
-        fs.writeFile(DATA_FILE, JSON.stringify(json, null, 2), (err) => {
-            if (err) {
-                console.error("Error writing to database.json:", err);
-                return res.status(500).json({ info: "Error saving to database" });
-            }
-            console.log("Success: Data saved to database.json");
-            res.json({ info: "Data Synced to Permanent Storage" });
-        });
-    });
-});
-
-// 2. FETCH DATA FROM database.json
-app.get('/all-messages', (req, res) => {
-    fs.readFile(DATA_FILE, 'utf8', (err, data) => {
-        if (err || !data) {
-            return res.json([]);
-        }
-        try {
-            res.json(JSON.parse(data));
-        } catch (e) {
-            res.json([]);
-        }
-    });
-});
-
-app.listen(3000, () => {
-    console.log("Server running at http://localhost:3000");
-});
+app.listen(PORT, '0.0.0.0', () => { console.log('Server is running'); });
