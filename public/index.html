@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ritesh Singh | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">RITESH<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">Profile</a></li>
+            <li><a href="#journey">Timeline</a></li>
+            <li><a href="#projects">Work</a></li>
+            <li><a href="#interests">Lifestyle</a></li>
+            <li><a href="#database">Database</a></li>
+        </ul>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="banner-box">
+            <div class="banner-top"><img src="banner.jpg" class="banner-img"></div>
+            <div class="profile-area">
+                <img src="profile.jpg" class="my-photo">
+                <h1>Ritesh Singh</h1>
+                <p>BCA Scholar | Java Developer | Tech Visionary</p>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-heading">About Me</h2>
+            <div class="about-content">
+                <p>I am a BCA student at <b>Kristu Jayanti University</b> with a deep passion for coding and logic. Beyond the screen, I am heavily inspired by the work ethic of players such as <b>Jayson Tatum</b>, <b>Kyrie Irving</b>, and <b>Kobe Bryant</b>. Basketball has been a massive influence on my life, teaching me the discipline that I apply to my programming every day. I'm also a huge fan of story-based PC games; I love a good narrative and the immersive worlds that developers create.</p>
+                <p>This portfolio serves as a live demonstration of my ability to integrate frontend aesthetics with robust backend systems using Node.js and Express at Kristu Jayanti University.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="journey" class="section alt-bg">
+        <div class="container">
+            <h2 class="section-heading">Milestones</h2>
+            <div class="timeline">
+                <div class="time-box">
+                    <h3>2022</h3>
+                    <h4>Foundational Mastery</h4>
+                    <p>Started attending Java and C courses at Aptech Education, which sparked my peak interest in Computer Science and established my core programming logic.</p>
+                </div>
+                <div class="time-box">
+                    <h3>2023</h3>
+                    <h4>Academic Excellence</h4>
+                    <p>Advanced my knowledge in CS, placing me significantly ahead of my batch and allowing me to top my cohort in Computer Science.</p>
+                </div>
+                <div class="time-box">
+                    <h3>2025</h3>
+                    <h4>High-School Graduation</h4>
+                    <p>Completed 12th Grade with a stellar 90% in the Commerce stream. Recognized as the subject topper in Informatics Practices, demonstrating technical excellence.</p>
+                </div>
+                <div class="time-box">
+                    <h3>2025 - Present</h3>
+                    <h4>Higher Education</h4>
+                    <p>Initiated my Bachelor of Computer Applications (BCA) journey at Kristu Jayanti University, focusing on advanced software paradigms.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-heading">Technical Catalog</h2>
+            <div class="project-grid">
+                <div class="p-card">
+                    <i class="fas fa-server"></i>
+                    <h3>Enterprise Event Manager</h3>
+                    <p>A robust web application built using <b>Java Servlets</b> and <b>JDBC</b> connectivity for real-time tracking.</p>
+                </div>
+                <div class="p-card">
+                    <i class="fas fa-tasks"></i>
+                    <h3>TaskFlow Manager</h3>
+                    <p>A specialized task management tool utilizing Java backend services and JDBC for data persistence.</p>
+                </div>
+                <div class="p-card">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Native Calculator</h3>
+                    <p>A high-precision mathematical engine developed in <b>C</b>, focusing on memory efficiency.</p>
+                </div>
+                <div class="p-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>Web Architecture</h3>
+                    <p>Developed multiple responsive websites throughout my career, focusing on modern UI/UX principles.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="interests" class="section alt-bg">
+        <div class="container">
+            <h2 class="section-heading">Beyond the Code</h2>
+            <div class="interest-grid">
+                <div class="interest-pill">Basketball</div>
+                <div class="interest-pill">Guitar</div>
+                <div class="interest-pill">Gym & Fitness</div>
+                <div class="interest-pill">Music</div>
+                <div class="interest-pill">Travelling</div>
+                <div class="interest-pill">Books</div>
+                <div class="interest-pill">Cooking</div>
+                <div class="interest-pill">Communication</div>
+            </div>
+            
+            <h2 class="section-heading" style="margin-top: 60px; font-size: 2rem;">Media Picks</h2>
+            <div class="show-grid">
+                <span class="show-item">Bleach</span>
+                <span class="show-item">Jujutsu Kaisen</span>
+                <span class="show-item">Money Heist</span>
+                <span class="show-item">Naruto</span>
+                <span class="show-item">Pursuit of Happiness</span>
+                <span class="show-item">Black Clover</span>
+                <span class="show-item">Hunter x Hunter</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="database" class="section">
+        <div class="container">
+            <h2 class="section-heading">Live Backend Interface</h2>
+            <form id="dbForm">
+                <input type="text" id="name" placeholder="Full Name" required>
+                <textarea id="msg" placeholder="Submit message to JSON Database..." required></textarea>
+                <button type="submit">Execute Sync</button>
+            </form>
+            <div id="displayArea"></div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Ritesh Singh &bull; Kristu Jayanti University &bull; 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
