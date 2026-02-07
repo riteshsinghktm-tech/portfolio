@@ -1,48 +1,48 @@
-const dbForm = document.getElementById('dbForm');
-const displayArea = document.getElementById('displayArea');
+document.addEventListener('DOMContentLoaded', () => {
+    const dbForm = document.getElementById('dbForm');
+    const displayArea = document.getElementById('displayArea');
 
-// Fetch and show only latest 2 messages
-async function loadMessages() {
-    try {
-        const res = await fetch('/all-messages');
-        const data = await res.json();
-        
-        displayArea.innerHTML = ""; 
-        
-        // slice(-2) gets the last two, reverse() puts newest at top
-        data.slice(-2).reverse().forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'post-entry';
-            div.innerHTML = `
-                <h4 style="color:#38bdf8">${item.name}</h4>
-                <p>${item.message}</p>
-                <small style="color:#64748b">${item.time}</small>
-            `;
-            displayArea.appendChild(div);
-        });
-    } catch (err) {
-        console.error("Fetch failed:", err);
-    }
-}
-
-// Handle form submission without reloading page
-dbForm.onsubmit = async (e) => {
-    e.preventDefault();
-    
-    const userPayload = {
-        name: document.getElementById('name').value,
-        message: document.getElementById('msg').value
+    // 1. FUNCTION TO GET DATA FROM SERVER
+    const loadData = async () => {
+        try {
+            const response = await fetch('/api/data');
+            const data = await response.json();
+            
+            displayArea.innerHTML = '<h3>Stored Messages:</h3>';
+            data.forEach(item => {
+                const p = document.createElement('p');
+                p.className = 'data-item';
+                p.innerHTML = `<strong>${item.name}:</strong> ${item.message}`;
+                displayArea.appendChild(p);
+            });
+        } catch (err) {
+            console.error('Error loading data:', err);
+        }
     };
 
-    await fetch('/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userPayload)
+    // 2. FUNCTION TO SEND DATA TO SERVER
+    dbForm.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Stop page from refreshing
+
+        const name = document.getElementById('name').value;
+        const message = document.getElementById('msg').value;
+
+        try {
+            const response = await fetch('/api/data', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, message })
+            });
+
+            if (response.ok) {
+                dbForm.reset(); // Clear the form
+                loadData();    // Refresh the list immediately
+            }
+        } catch (err) {
+            console.error('Error saving data:', err);
+        }
     });
 
-    dbForm.reset();
-    loadMessages();
-};
-
-// Initial run
-loadMessages();
+    // Load data when page first opens
+    loadData();
+});
